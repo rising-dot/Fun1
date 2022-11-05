@@ -1,0 +1,160 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<style>
+		#theCanvas{
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			height: 100vh;
+			border: 1px solid gray;
+		}
+		#innerTheCanvas{
+			height: 100vh;
+			width: 900px;
+			
+			
+		}
+		body {
+   			background-image: url("parallax_image3.png");
+   			background-repeat: no-repeat;
+		}
+	</style>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+
+
+
+	<div id="theCanvas">
+			<div id="innerTheCanvas"></div>
+	</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+	
+
+
+	// The coordinations 
+    var myx, myy;
+    $("#innerTheCanvas").on("mousemove", function(e) {
+        myx = e.pageX;
+        myy = e.pageY;
+    });
+
+
+	
+	//the pen - 1
+	var redb = 66;
+	var blueb = 134;
+	var greenb = 244;
+
+	setInterval(function() {
+
+		var randomColor = Math.floor(Math.random()*3);	//0,1,2
+		if(randomColor == 0){
+			redb = Math.floor(Math.random()*255);
+		}
+		if(randomColor == 1){
+			blueb = Math.floor(Math.random()*255);	
+		}	
+		if(randomColor == 2){
+			greenb = Math.floor(Math.random()*255);
+		}
+	}, 2000);
+
+    setInterval(function() {
+	    var img = $('<div class="runDiv" style="height:20px; width:20px; border-radius: 50%; background-color:rgb('+redb+','+blueb+','+greenb+'); position: absolute; left: '+ myx+'px; top: '+ myy+'px;"></div>');
+	   
+	   	$("#innerTheCanvas").append(img); 
+		$(".runDiv").animate({left: "100px" }, 1000, 'linear');
+
+    }, 30);
+    //END the pen - 1
+
+
+
+
+
+    //random spawn withIn the Pen - 1
+	var icons = ["fa-asterisk", "fa-bell", "fa-heart", "fa-hourglass"];
+	setInterval(function() {
+
+  		var random = Math.floor(Math.random()*icons.length);	
+
+  		var red = Math.floor(Math.random()*255);		
+  		var blue = Math.floor(Math.random()*255);	
+  		var green = Math.floor(Math.random()*255);
+
+
+	  	myyy = myy - 50;
+	    var star = '<i class="fa '+icons[random]+' fa-5x fa-spin" style="position:absolute; z-index:2; color:rgb('+red+','+blue+','+green+'); left: '+ myx+'px; top: '+ myyy+'px;" aria-hidden="true"></i>';
+	   
+	   	$("#innerTheCanvas").append(star); 
+		$(".fa").animate({left: "100px" }, 1000, 'linear');
+		
+    },2000);
+	 //END random spawn withIn the Pen - 1
+
+
+
+
+
+
+
+
+  	// your own click
+    $(document).on('click','#innerTheCanvas',function(){
+
+	 	var smile = '<i class="fa fa-heart fa-5x fa-spin" style="position: absolute;z-index:3; color:rgb('+redb+','+blueb+','+greenb+') ; left: '+ myx+'px; top: '+ myy+'px " aria-hidden="true"></i>';
+
+	   	$("#innerTheCanvas").append(smile); 
+		$(".fa-heart").fadeOut("slow");
+
+
+    });
+
+
+
+
+
+    // remove all the elements
+	setInterval(function(){ 
+
+		if($(".runDiv").css("left") == "100px") {
+		  $(".runDiv:first").remove();
+
+		}
+		
+		if($(".fa").css("left") == "100px") {
+		  $(".fa:first").remove();
+		  
+		}	
+
+	}, 20);
+
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
